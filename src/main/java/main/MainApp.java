@@ -11,9 +11,6 @@ public class MainApp {
     public static void main(String[] args) throws  SQLException {
         
        Scanner sc = new Scanner(System.in);
-//        BankingDetailsDAO bd = new BankingDetailsDAO();
-//        TranscationDetailsDAO td = new TranscationDetailsDAO();
-//        BankAccount user1 = new BankAccount(bd , td);
         
 
         
@@ -73,7 +70,14 @@ public class MainApp {
 
     }
 
-    private static void withdraw() {
+    private static void withdraw() throws SQLException {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("ENTER YOUR ACCOUNTNUMBER");
+        int acc_no = sc.nextInt();
+        System.out.println("ENTER THE WITHDRAW AMOUNT");
+        int amount = sc.nextInt();
+        BankingDetailsDAO bd = new BankingDetailsDAO();
+        bd.withdraw(acc_no,amount);
     }
 
     private static void rollback() {

@@ -19,4 +19,8 @@ public class BankAccount  {
     public void deposit(int accountno , int amount) throws SQLException {
                bd.updatebalance(accountno,amount);
     }
+
+    public void withdraw(int accountno , int amount) throws SQLException{
+        bd.withdraw(accountno ,amount);
+    }
 }
