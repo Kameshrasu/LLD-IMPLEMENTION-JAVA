@@ -18,9 +18,7 @@ public class MainApp {
             System.out.println("1 ==> ADD USER");
             System.out.println("2 ==> deposit");
             System.out.println("3 ==> withdraw");
-            System.out.println("4 ==> rollback");
-            System.out.println("5 ==> delete user");
-            System.out.println("6 ==> exit");
+            System.out.println("4 ==> exit");
             System.out.println("select the options");
             int choice = sc.nextInt();
             switch(choice){
@@ -34,12 +32,6 @@ public class MainApp {
                     withdraw();
                     break;
                 case 4:
-                    rollback();
-                    break;
-                case 5:
-                    deleteuser();
-                    break;
-                case 6:
                     return;
                 default :
                     System.out.println("Unknown choice");
@@ -66,7 +58,12 @@ public class MainApp {
         System.out.println("ENTER THE DEPOSIT AMOUNT");
         int amount = sc.nextInt();
         BankingDetailsDAO bd = new BankingDetailsDAO();
-        bd.updatebalance(acc_no,amount);
+        TranscationDetails tdetails = new TranscationDetails(acc_no , "deposit" ,amount);
+        TranscationDetailsDAO td = new TranscationDetailsDAO();
+        BankAccount user = new BankAccount(bd , td);
+        user.deposit(acc_no,amount);
+        td.addtranscation(tdetails);
+
 
     }
 
@@ -77,14 +74,14 @@ public class MainApp {
         System.out.println("ENTER THE WITHDRAW AMOUNT");
         int amount = sc.nextInt();
         BankingDetailsDAO bd = new BankingDetailsDAO();
-        bd.withdraw(acc_no,amount);
+        TranscationDetailsDAO td = new TranscationDetailsDAO();
+        BankAccount user = new BankAccount(bd , td);
+        user.withdraw(acc_no , amount);
+        TranscationDetails tdetails = new TranscationDetails(acc_no , "withdraw" ,amount);
+        td.addtranscation(tdetails);
+
     }
 
-    private static void rollback() {
-    }
-
-    private static void deleteuser() {
-    }
 
 
 }

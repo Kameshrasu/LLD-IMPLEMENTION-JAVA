@@ -1,11 +1,13 @@
 package Service;
 import Model.*;
 
+import java.sql.SQLException;
+
 public interface BankingOperations {
 
-    public void deposit(BankingDetails bd , TranscationDetails td , int amount);
+    public void deposit(int accountno , int amount) throws SQLException;
 
-    public void withdraw(BankingDetails bd , TranscationDetails td , int amount);
+    public void withdraw(int accountno , int amount) throws SQLException;
 
 
 }

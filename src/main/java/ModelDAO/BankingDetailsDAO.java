@@ -38,7 +38,7 @@ public int getbalance(int account_no) throws SQLException{
 
 public void updatebalance(int account_no , int amount) throws SQLException{
     Connection conn = DBUtil.DBConnection.get_connection();
-    int newbalance = getbalance(account_no) + amount;
+    int newbalance = amount;
     String query = "update BankingDetails set balance = (?) where account_no = (?) ";
     PreparedStatement pb = conn.prepareStatement(query);
     pb.setInt(2,account_no);
@@ -49,33 +49,5 @@ public void updatebalance(int account_no , int amount) throws SQLException{
 
 }
 
-public void withdraw(int account_no , int amount) throws SQLException{
-    Connection conn = DBUtil.DBConnection.get_connection();
-    int BALANCE = getbalance(account_no);
-
-    if(BALANCE >=amount){
-        int newbalance = BALANCE - amount;
-        String query = "update BankingDetails set balance = (?) where account_no = (?) ";
-        PreparedStatement pb = conn.prepareStatement(query);
-        pb.setInt(2,account_no);
-        pb.setInt(1 , newbalance);
-        int rows = pb.executeUpdate();
-
-        System.out.println(" amount withdraw successfully ");
-    }
-    else{
-        System.out.print("there is no enough amount");
-    }
-
-
-}
-
-
-//    public static void main(String[] args) throws SQLException {
-//        BankingDetailsDAO CHECK = new BankingDetailsDAO();
-//       int data =  CHECK.getbalance(1);
-//        System.out.println(data);
-//
-//    }
 
 }

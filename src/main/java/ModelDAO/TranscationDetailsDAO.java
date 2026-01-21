@@ -5,24 +5,18 @@ import Model.TranscationDetails;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import DBUtil.*;
 
 public class TranscationDetailsDAO {
 
-    public void addtranscation(TranscationDetails td , BankingDetails bd) throws SQLException {
-        int amount = td.getAmount();
-        String transcation = td.getTranscation();
-        int account_no = bd.getAccount_no();
-
-        Connection conn = DBUtil.DBConnection.get_connection();
-        String query = "insert into TranscationDetails VALUES(?,?,?)";
-        PreparedStatement pb = conn.prepareStatement(query);
-        pb.setString(1,transcation);
-        pb.setInt(2 , account_no);
-        pb.setInt(3 , amount);
-
-        int rows = pb.executeUpdate();
-
-        System.out.println("transcation details added sucessfully");
-
+    public void addtranscation(TranscationDetails td) throws SQLException {
+        Connection conn = DBConnection.get_connection();
+        String query = "INSERT INTO TransactionDetails(account_no, transaction_type, amount) VALUES (?, ?, ?)";
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setInt(1, td.getAccountNo());
+        ps.setString(2, td.getTransactionType());
+        ps.setInt(3, td.getAmount());
+        ps.executeUpdate();
     }
+
 }
